@@ -1,0 +1,36 @@
+// Self-Balancing Robot - Simplified Hardware
+digraph {
+	bgcolor=white nodesep=0.6 rankdir=TB ranksep=1.0 splines=line
+	compound=true
+	subgraph cluster_control {
+		color=darkgrey fillcolor="#F5F5F5" fontname=Arial fontsize=10 label="Control Unit" style="filled,rounded"
+		ARDUINO [label="Arduino Nano
+(MCU)" color="#6C8EBF" fillcolor="#DAE8FC" fontname=Arial fontsize=11 margin="0.3,0.15" shape=box style="filled,rounded"]
+		MPU6050 [label="MPU6050
+(IMU)" color="#D6B656" fillcolor="#FFF2CC" fontname=Arial fontsize=11 margin="0.3,0.15" shape=box style="filled,rounded"]
+	}
+	subgraph cluster_actuation {
+		color=darkgrey fillcolor="#F5F5F5" fontname=Arial fontsize=10 label="Actuation System" style="filled,rounded"
+		L298N [label="L298N
+Motor Driver" color="#B85450" fillcolor="#F8CECC" fontname=Arial fontsize=11 margin="0.3,0.15" shape=box style="filled,rounded"]
+		MOTOR_L [label="Left Motor" color="#9673A6" fillcolor="#E1D5E7" fontname=Arial fontsize=11 margin="0.3,0.15" shape=box style="filled,rounded"]
+		MOTOR_R [label="Right Motor" color="#9673A6" fillcolor="#E1D5E7" fontname=Arial fontsize=11 margin="0.3,0.15" shape=box style="filled,rounded"]
+	}
+	BATTERY [label=Battery color="#82B366" fillcolor="#D5E8D4" fontname=Arial fontsize=11 margin="0.3,0.15" shape=box style="filled,rounded"]
+	COMMON_GND [label=GND fillcolor="#333333" fontcolor=white fontsize=9 height=0.3 shape=circle style=filled width=0.3]
+	BATTERY -> ARDUINO [label="VIN (+)
+(Optional)" color="#82B366" fontcolor="#555555" fontsize=9 penwidth=1.0 style=dashed]
+	ARDUINO -> COMMON_GND [label=GND arrowhead=none color="#333333" fontcolor="#555555" fontsize=9 penwidth=1.0]
+	ARDUINO -> MPU6050 [label="5V" color="#6C8EBF" fontcolor="#555555" fontsize=9 penwidth=1.0]
+	MPU6050 -> COMMON_GND [label=GND arrowhead=none color="#333333" fontcolor="#555555" fontsize=9 penwidth=1.0]
+	ARDUINO -> L298N [label="5V (Logic)" color="#6C8EBF" fontcolor="#555555" fontsize=9 penwidth=1.0]
+	L298N -> COMMON_GND [label=GND arrowhead=none color="#333333" fontcolor="#555555" fontsize=9 penwidth=1.0]
+	BATTERY -> L298N [label="+ Motor Supply" color="#82B366" fontcolor="#555555" fontsize=9 penwidth=1.5]
+	BATTERY -> COMMON_GND [label="GND (-)" arrowhead=none color="#333333" fontcolor="#555555" fontsize=9 penwidth=1.0]
+	ARDUINO -> MPU6050 [label="I²C Bus (SDA, SCL)
++ INT" color="#007ACC" dir=both fontcolor="#00568F" fontsize=10 penwidth=2.0]
+	ARDUINO -> L298N [label="Motor Control Signals
+(ENA, IN1, IN2, ENB, IN3, IN4)" color="#CC3333" fontcolor="#8C2323" fontsize=10 penwidth=2.0]
+	L298N -> MOTOR_L [label=Power color="#6A0DAD" fontcolor="#4B0082" fontsize=10 penwidth=2.0]
+	L298N -> MOTOR_R [label=Power color="#6A0DAD" fontcolor="#4B0082" fontsize=10 penwidth=2.0]
+}

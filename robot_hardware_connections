@@ -1,0 +1,22 @@
+// Self-Balancing Robot Hardware Connections
+digraph {
+	nodesep=0.8 rankdir=LR ranksep=1.2 splines=ortho
+	ARDUINO [label="Arduino Nano
+(Microcontroller)" fillcolor=lightblue fontname=Arial shape=box style=filled]
+	MPU6050 [label="MPU6050
+(IMU Sensor)" fillcolor=lightgoldenrodyellow fontname=Arial shape=box style=filled]
+	L298N [label="L298N
+(Motor Driver)" fillcolor=lightcoral fontname=Arial shape=box style=filled]
+	MOTOR_L [label="Left DC Motor" fillcolor=lightgrey fontname=Arial shape=ellipse style=filled]
+	MOTOR_R [label="Right DC Motor" fillcolor=lightgrey fontname=Arial shape=ellipse style=filled]
+	BATTERY [label="Battery
+(e.g., 7.4V LiPo / 6V-9V AA Pack)" fillcolor=khaki fontname=Arial shape=ellipse style=filled]
+	COMMON_GND [label="COMMON
+GROUND" fillcolor=black fontcolor=white fontname=Arial fontsize=10 shape=diamond style=filled]
+	ARDUINO -> COMMON_GND [label=GND arrowhead=none fontname=Arial fontweight=bold]
+	L298N -> MOTOR_L [label=" OUT1, OUT2" arrowhead=normal fontname=Arial fontweight=bold]
+	L298N -> MOTOR_R [label=" OUT3, OUT4" arrowhead=normal fontname=Arial fontweight=bold]
+	BATTERY -> L298N [label=" (+) → \"+12V\" (Motor Power Input)" arrowhead=normal fontname=Arial fontweight=bold]
+	BATTERY -> COMMON_GND [label=" (-)" arrowhead=none fontname=Arial fontweight=bold]
+	L298N -> COMMON_GND [label="GND (Motor Power Return & Logic)" arrowhead=none fontname=Arial fontsize=12 fontweight=bold]
+}

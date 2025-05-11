@@ -1,0 +1,34 @@
+// Self-Balancing Robot - Simplified Hardware v2
+digraph {
+	bgcolor=white nodesep=0.7 rankdir=TB ranksep=1.2 splines=line
+	compound=true
+	subgraph cluster_control {
+		color=darkgrey fontname=Arial fontsize=10 label="Control Unit" style=rounded
+		ARDUINO [label="Arduino Nano
+(MCU + 5V Source)" color="#90CAF9" fillcolor="#E3F2FD" fontname=Arial fontsize=11 margin="0.3,0.15" shape=box style="filled,rounded"]
+		MPU6050 [label="MPU6050
+(IMU)" color="#FFEE58" fillcolor="#FFF9C4" fontname=Arial fontsize=11 margin="0.3,0.15" shape=box style="filled,rounded"]
+	}
+	subgraph cluster_actuation {
+		color=darkgrey fontname=Arial fontsize=10 label="Actuation System" style=rounded
+		L298N [label="L298N
+Motor Driver" color="#EF9A9A" fillcolor="#FFCDD2" fontname=Arial fontsize=11 margin="0.3,0.15" shape=box style="filled,rounded"]
+		MOTOR_L [label="Left Motor" color="#CE93D8" fillcolor="#E1BEE7" fontname=Arial fontsize=11 margin="0.3,0.15" shape=box style="filled,rounded"]
+		MOTOR_R [label="Right Motor" color="#CE93D8" fillcolor="#E1BEE7" fontname=Arial fontsize=11 margin="0.3,0.15" shape=box style="filled,rounded"]
+	}
+	BATTERY [label="Battery
+(7.4V+)" color="#A5D6A7" fillcolor="#C8E6C9" fontname=Arial fontsize=11 margin="0.3,0.15" shape=box style="filled,rounded"]
+	BATTERY -> ARDUINO [label="VIN(+), GND(-)" color="#4CAF50" fontcolor="#388E3C" fontsize=9 penwidth=1.2 style=solid]
+	ARDUINO -> MPU6050 [label="5V, GND" color="#1E88E5" fontcolor="#1565C0" fontsize=9 penwidth=1.2]
+	ARDUINO -> L298N [label="5V (Logic), GND" color="#1E88E5" fontcolor="#1565C0" fontsize=9 penwidth=1.2]
+	BATTERY -> L298N [label="Motor Supply (+), GND (-)" color="#F44336" fontcolor="#D32F2F" fontsize=9 penwidth=1.5]
+	ARDUINO -> MPU6050 [label="I²C (SDA, SCL)
++ INT" color="#007ACC" dir=both fontcolor="#00568F" fontsize=10 penwidth=2.0]
+	ARDUINO -> L298N [label="Motor Control Signals
+(6 Wires: ENA/B, IN1-4)" color="#FF5722" fontcolor="#E64A19" fontsize=10 penwidth=2.0]
+	L298N -> MOTOR_L [label="Motor Power
+(2 Wires)" color="#673AB7" fontcolor="#512DA8" fontsize=10 penwidth=2.0]
+	L298N -> MOTOR_R [label="Motor Power
+(2 Wires)" color="#673AB7" fontcolor="#512DA8" fontsize=10 penwidth=2.0]
+	NOTE_GROUND [label="Note: All GND pins are interconnected to form a common ground." fontcolor="#555555" fontname=Arial fontsize=9 pos="1,0!" shape=plaintext]
+}
