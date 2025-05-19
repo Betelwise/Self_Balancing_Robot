@@ -78,3 +78,11 @@ dot.graph_attr.pop('splines', None) # Make sure it's not using a previous spline
 dot.render(output_filename, view=True, format='png')
 
 print(f"Simplified flowchart (v2) saved as {output_filename}.png (and .gv source file)")
+const int ENA_PIN = 9;  // PWM for Speed Control Motor A
+const int IN1_PIN = 4;  // Direction Control Motor A
+const int IN2_PIN = 5;  // Direction Control Motor A
+
+// Motor B (Right Motor)
+const int ENB_PIN = 3;  // PWM for Speed Control Motor B
+const int IN3_PIN = 6;  // Direction Control Motor B
+const int IN4_PIN = 8;  // Direction Control Motor B
